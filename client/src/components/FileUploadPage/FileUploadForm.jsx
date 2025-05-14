@@ -3,38 +3,27 @@ import { useRef, useState } from "react";
 const FileUploadForm = ({ setFiles }) => {
   const [file, setFile] = useState(null);
   const fileUploadRef = useRef(null);
-  const handleFileUploadChange = (e) => {
-    setFile(e.target.files[0]);
-    setFiles((prev) => [e.target.files[0], ...prev]);
-    console.log(e.target.files);
-  };
-  return (
-    <div className="h-[100px] p-4 flex justify-center items-center  bg-gray-400 rounded-xl w-80 relative">
-      {file == null && (
-        <button
-          type="button"
-          onClick={() => {
-            fileUploadRef.current.click();
-          }}
-          className=" cursor-pointer bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300"
-        >
-          Upload File
-        </button>
-      )}
 
-      {file != null && (
-        <button
-          type="button"
-          onClick={() => {
-            fileUploadRef.current.click();
-          }}
-          className="text-wrap"
-        >
-          {file?.name?.length < 20
-            ? file?.name
-            : file?.name?.slice(0, 20) + " ..."}
-        </button>
-      )}
+  const handleFileUploadChange = (e) => {
+    const uploadedFile = e.target.files[0];
+    setFile(uploadedFile);
+    setFiles((prev) => [uploadedFile, ...prev]);
+  };
+
+  return (
+    <div className="w-72 h-24 bg-white border border-sky-200 shadow-md rounded-xl flex justify-center items-center p-4 transition-all">
+      <button
+        type="button"
+        onClick={() => fileUploadRef.current.click()}
+        className="text-sm text-sky-600 hover:text-sky-800 font-medium px-4 py-2 rounded-lg bg-sky-50 hover:bg-sky-100 transition-all duration-200"
+      >
+        {file == null
+          ? "Upload File"
+          : file.name.length < 20
+            ? file.name
+            : file.name.slice(0, 20) + " ..."}
+      </button>
+
       <input
         type="file"
         ref={fileUploadRef}
@@ -44,4 +33,5 @@ const FileUploadForm = ({ setFiles }) => {
     </div>
   );
 };
+
 export default FileUploadForm;
