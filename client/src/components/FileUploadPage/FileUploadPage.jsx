@@ -39,12 +39,14 @@ const FileUploadPage = () => {
             </p>
           </div>
 
-          <div className="mt-8 w-full max-w-2xl">
-            <FileUploadFormSection
-              setResult={setResult}
-              filesList={fileUploadFormList}
-            />
-          </div>
+          {fileUploadFormList.length != 0 && (
+            <div className="mt-8 w-full max-w-2xl">
+              <FileUploadFormSection
+                setResult={setResult}
+                filesList={fileUploadFormList}
+              />
+            </div>
+          )}
         </>
       )}
     </div>
