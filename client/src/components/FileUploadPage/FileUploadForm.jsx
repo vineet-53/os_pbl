@@ -9,19 +9,14 @@ const FileUploadForm = ({ setFiles }) => {
     console.log(e.target.files);
   };
   return (
-    <div
-      onClick={() => {
-        fileUploadRef.current.click();
-      }}
-      className="h-[100px] p-4 flex justify-center items-center  bg-gray-400 rounded-xl w-80 relative"
-    >
+    <div className="h-[100px] p-4 flex justify-center items-center  bg-gray-400 rounded-xl w-80 relative">
       {file == null && (
         <button
           type="button"
           onClick={() => {
             fileUploadRef.current.click();
           }}
-          class=" cursor-pointer bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300"
+          className=" cursor-pointer bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300"
         >
           Upload File
         </button>
@@ -33,7 +28,7 @@ const FileUploadForm = ({ setFiles }) => {
           onClick={() => {
             fileUploadRef.current.click();
           }}
-          class="text-wrap"
+          className="text-wrap"
         >
           {file?.name?.length < 20
             ? file?.name

@@ -24,6 +24,19 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+async function removeJunkFiles(files) {
+  files?.map((file) => {
+    if (file?.path) {
+      fs.unlink(file.path, (err) => {
+        if (err) {
+          console.log("Error deleting file");
+        }
+      });
+    }
+  });
+  console.log("removed junk files");
+}
+
 // No limit on file count here
 router.post("/", upload.array("files"), async (req, res) => {
   try {
@@ -55,20 +68,17 @@ router.post("/", upload.array("files"), async (req, res) => {
       result = await processFilesFCFS(fileQueue);
     }
 
+    await removeJunkFiles(files);
+
     return res.json({
       message: "Files uploaded successfully",
-      files: uploadedFiles,
+      success: true,
       result,
     });
   } catch (err) {
     console.error("Upload error:", err);
-    res.status(500).json({ message: "File upload failed." });
+    res.status(500).json({ success: false, message: "File upload failed." });
   }
 });
 
-router.get("/", (req, res) => {
-  return res.json({
-    message: "yes",
-  });
-});
 module.exports = router;
