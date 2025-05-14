@@ -1,12 +1,14 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import FileUploadForm from "./FileUploadForm";
 import { BASE_URL } from "../../constant/api";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const FileUploadFormSection = ({ filesList, setResult }) => {
   const [files, setFiles] = useState([]);
   const [selectAlgo, setSelectAlgo] = useState("fcfs");
+  const navigate = useNavigate();
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -36,6 +38,7 @@ const FileUploadFormSection = ({ filesList, setResult }) => {
           throw new Error("Upload failed");
         }
         setResult(res.data.result);
+        navigate("/process", { state: { selectedAlgo: selectAlgo } });
         toast.success(res.data.message);
       } catch (err) {
         console.error("Upload error:", err);
@@ -63,11 +66,13 @@ const FileUploadFormSection = ({ filesList, setResult }) => {
           <select
             value={selectAlgo}
             onChange={(e) => setSelectAlgo(e.target.value)}
-            className="block w-full border border-sky-300 rounded-lg px-4 py-2 text-base text-gray-700 focus:outline-none focus:ring-2 focus:ring-sky-400"
+            className="block w-full border cursor-pointer border-sky-300 rounded-lg px-4 py-2 text-base text-gray-700 focus:outline-none focus:ring-2 focus:ring-sky-400"
           >
             <option value="fcfs">FCFS</option>
             <option value="ljfs">LJFS</option>
             <option value="sjfs">SJFS</option>
+            <option value="rr">RR</option>
+            <option value="priority">Priority</option>
           </select>
         </div>
       )}
@@ -81,7 +86,7 @@ const FileUploadFormSection = ({ filesList, setResult }) => {
       {filesList?.length !== 0 && (
         <button
           type="submit"
-          className="mt-4 px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl shadow-md transition-all duration-200"
+          className="mt-4 px-6 py-2 cursor-pointer bg-sky-600 hover:bg-sky-700 text-white rounded-xl shadow-md transition-all duration-200"
         >
           Upload
         </button>
