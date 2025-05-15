@@ -3,7 +3,7 @@ export default function GanttChart({ ganttData }) {
 
   return (
     <div>
-      <h2 className="text-lg font-semibold mb-2 text-sky-600">Gantt Chart:</h2>
+      <h2 className="text-lg font-semibold mb-2 text-purple font-poppins">Gantt Chart:</h2>
       <div className="overflow-x-auto max-w-full">
         <div className="flex items-center space-x-1 border p-3 rounded bg-gray-50 relative min-w-max">
           {ganttData.map((block, index) => (

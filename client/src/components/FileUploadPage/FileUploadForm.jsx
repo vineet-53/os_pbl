@@ -11,11 +11,11 @@ const FileUploadForm = ({ setFiles }) => {
   };
 
   return (
-    <div className="w-72 h-24 bg-white border border-sky-200 shadow-md rounded-xl flex justify-center items-center p-4 transition-all">
+    <div className="w-72 h-24 bg-white border-3 border-lav shadow-md rounded-xl flex justify-center items-center p-4 transition-all">
       <button
         type="button"
         onClick={() => fileUploadRef.current.click()}
-        className="text-sm text-sky-600 hover:text-sky-800 cursor-pointer font-medium px-4 py-2 rounded-lg bg-sky-50 hover:bg-sky-100 transition-all duration-200"
+        className="text-sm text-white cursor-pointer font-medium px-4 py-2 rounded-lg bg-lav transition-all duration-200"
       >
         {file == null
           ? "Upload File"

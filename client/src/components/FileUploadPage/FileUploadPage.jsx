@@ -12,15 +12,15 @@ const FileUploadPage = () => {
   }
 
   return (
-    <div className="bg-gradient-to-b from-sky-100 to-white py-20 px-4 flex flex-col items-center min-h-screen text-gray-800">
+    <div className="bg-gray py-20 px-4 flex flex-col items-center min-h-screen font-poppins text-purple">
       {result.length === 0 && (
         <>
-          <div className="w-full max-w-md p-6 bg-white rounded-2xl shadow-xl flex flex-col gap-4 border border-sky-200">
-            <h2 className="text-2xl font-semibold text-sky-700">
+          <div className="w-full max-w-md p-6 bg-white rounded-2xl shadow-xl flex flex-col gap-4 border-3 border-lav">
+            <h2 className="text-2xl font-semibold text-purple">
               How many files are there?
             </h2>
             <input
-              className="border border-sky-300 rounded-lg px-3 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-sky-400 transition-all"
+              className="border border-lav rounded-lg px-3 py-2 text-lg focus:outline-none focus:ring-2 focus:purple transition-all"
               type="number"
               placeholder="Enter number of files"
               ref={inputRef}
@@ -29,7 +29,7 @@ const FileUploadPage = () => {
                 else if (parseInt(inputRef.current.value) > 10) return;
                 else {
                   setFileUploadFormList(
-                    new Array(parseInt(inputRef.current.value)).fill(1),
+                    new Array(parseInt(inputRef.current.value)).fill(1)
                   );
                 }
               }}

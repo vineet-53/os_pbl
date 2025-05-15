@@ -7,12 +7,12 @@ export default function ResultTable({
 }) {
   return (
     <div>
-      <h2 className="text-lg font-semibold mb-2 text-sky-600">
+      <h2 className="text-lg font-semibold mb-2 text-purple">
         Simulation Result:
       </h2>
       <table className="w-full border mt-2">
         <thead>
-          <tr className="bg-gray-200">
+          <tr className="bg-gray-200 text-lav">
             <th className="p-2 border">Process ID</th>
             <th className="p-2 border">Arrival Time</th>
             <th className="p-2 border">Burst TIme</th>

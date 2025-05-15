@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+@theme {
+    --color-purple: #AA60C8;
+    --color-lav: #D69ADE;
+    --color-gray: #2C2C2C;
+    --color-red: #AF1740;
+    --font-poppins: Poppins, sans-serif;
+  }
+  
