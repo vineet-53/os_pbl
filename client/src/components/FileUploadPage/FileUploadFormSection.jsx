@@ -8,7 +8,9 @@ import { useNavigate } from "react-router-dom";
 const FileUploadFormSection = ({ filesList, setResult }) => {
   const [files, setFiles] = useState([]);
   const [selectAlgo, setSelectAlgo] = useState("fcfs");
-  const navigate = useNavigate();
+
+  // FIX: why this navigate ?
+  //const navigate = useNavigate();
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -38,7 +40,7 @@ const FileUploadFormSection = ({ filesList, setResult }) => {
           throw new Error("Upload failed");
         }
         setResult(res.data.result);
-        navigate("/process", { state: { selectedAlgo: selectAlgo } });
+        //navigate("/process", { state: { selectedAlgo: selectAlgo } });
         toast.success(res.data.message);
       } catch (err) {
         console.error("Upload error:", err);
