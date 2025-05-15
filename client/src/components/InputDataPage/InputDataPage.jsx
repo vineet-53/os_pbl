@@ -28,13 +28,11 @@ export default function InputDataPage() {
 
   const addProcess = () => {
     if (arrivalTime === "" || burstTime === "") return;
-
     const newProcess = {
       id: processes.length + 1,
       arrivalTime: parseInt(arrivalTime),
       burstTime: parseInt(burstTime),
     };
-
     if (selectedAlgo === "priority") {
       if (priority === "") return;
       newProcess.priority = parseInt(priority);
@@ -85,7 +83,6 @@ export default function InputDataPage() {
     setAvgWaitingTime(avgWaitingTime);
     setAvgTurnaroundTime(avgTurnaroundTime);
     setCpuUtilization(cpuUtilization);
-
     gantt.forEach((block, index) => {
       setTimeout(() => {
         setGanttData((prev) => [...prev, block]);
