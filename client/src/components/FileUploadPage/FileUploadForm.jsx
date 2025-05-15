@@ -15,7 +15,7 @@ const FileUploadForm = ({ setFiles }) => {
       <button
         type="button"
         onClick={() => fileUploadRef.current.click()}
-        className="text-sm text-sky-600 hover:text-sky-800 font-medium px-4 py-2 rounded-lg bg-sky-50 hover:bg-sky-100 transition-all duration-200"
+        className="text-sm text-sky-600 hover:text-sky-800 cursor-pointer font-medium px-4 py-2 rounded-lg bg-sky-50 hover:bg-sky-100 transition-all duration-200"
       >
         {file == null
           ? "Upload File"

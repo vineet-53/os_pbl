@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import InputForm from "../InputDataPage/InputForm";
+import ResultTable from "../InputDataPage/ResultTable";
+import GanttChart from "../InputDataPage/GanttChart";
+import { runFCFS } from "../../algorithm/fcfs.js";
+import { runLJF } from "../../algorithm/ljf.js";
+import { runSJF } from "../../algorithm/sjf.js";
+import { runRR } from "../../algorithm/rr.js";
+import { runPriority } from "../../algorithm/priority.js";
 
 export default function InputDataPage() {
+  const location = useLocation();
+  const selectedAlgo = location.state?.selectedAlgo || "";
+
   const [processes, setProcesses] = useState([]);
   const [arrivalTime, setArrivalTime] = useState("");
   const [burstTime, setBurstTime] = useState("");
+  const [priority, setPriority] = useState("");
+  const [timeQuantum, setTimeQuantum] = useState(2); // Used only once
+
   const [result, setResult] = useState([]);
   const [ganttData, setGanttData] = useState([]);
-  const [isAnimating, setIsAnimating] = useState(false);
-
   const [totalTime, setTotalTime] = useState(0);
   const [cpuUtilization, setCpuUtilization] = useState(0);
   const [avgWaitingTime, setAvgWaitingTime] = useState(0);
@@ -20,110 +33,108 @@ export default function InputDataPage() {
       arrivalTime: parseInt(arrivalTime),
       burstTime: parseInt(burstTime),
     };
+    if (selectedAlgo === "priority") {
+      if (priority === "") return;
+      newProcess.priority = parseInt(priority);
+    }
+
     setProcesses([...processes, newProcess]);
     setArrivalTime("");
     setBurstTime("");
+    setPriority("");
   };
 
   const runSimulation = () => {
-    const sorted = [...processes].sort((a, b) => a.arrivalTime - b.arrivalTime);
-    let time = 0;
-    const output = [];
-    const gantt = [];
+    let simulationResult;
 
-    sorted.forEach((p) => {
-      if (p.arrivalTime > time) {
-        gantt.push({
-          id: "Idle",
-          start: time,
-          duration: p.arrivalTime - time,
-        });
-        time = p.arrivalTime;
-      }
+    switch (selectedAlgo) {
+      case "fcfs":
+        simulationResult = runFCFS(processes);
+        break;
+      case "sjfs":
+        simulationResult = runSJF(processes);
+        break;
+      case "ljfs":
+        simulationResult = runLJF(processes);
+        break;
+      case "rr":
+        simulationResult = runRR(processes, parseInt(timeQuantum));
+        break;
+      case "priority":
+        simulationResult = runPriority(processes);
+        break;
+      default:
+        console.error("Unknown algorithm selected.");
+        return;
+    }
 
-      const start = time;
-      const completion = start + p.burstTime;
-      const turnaround = completion - p.arrivalTime;
-      const waiting = start - p.arrivalTime;
+    const {
+      result,
+      gantt,
+      totalTime,
+      avgWaitingTime,
+      avgTurnaroundTime,
+      cpuUtilization,
+    } = simulationResult;
 
-      output.push({
-        ...p,
-        start,
-        completion,
-        turnaround,
-        waiting,
-      });
-
-      gantt.push({
-        id: p.id,
-        start,
-        duration: p.burstTime,
-      });
-
-      time = completion;
-    });
-
-    // Metrics
-    const totalBurstTime = sorted.reduce((sum, p) => sum + p.burstTime, 0);
-    const endTime =
-      gantt[gantt.length - 1].start + gantt[gantt.length - 1].duration;
-    const totalWaiting = output.reduce((sum, p) => sum + p.waiting, 0);
-    const totalTurnaround = output.reduce((sum, p) => sum + p.turnaround, 0);
-    const avgWaiting = totalWaiting / output.length;
-    const avgTurnaround = totalTurnaround / output.length;
-    const utilization = (totalBurstTime / endTime) * 100;
-
-    setResult(output);
+    setResult(result);
     setGanttData([]);
-    setTotalTime(endTime);
-    setCpuUtilization(utilization.toFixed(2));
-    setAvgWaitingTime(avgWaiting.toFixed(2));
-    setAvgTurnaroundTime(avgTurnaround.toFixed(2));
-    setIsAnimating(true);
-
+    setTotalTime(totalTime);
+    setAvgWaitingTime(avgWaitingTime);
+    setAvgTurnaroundTime(avgTurnaroundTime);
+    setCpuUtilization(cpuUtilization);
     gantt.forEach((block, index) => {
       setTimeout(() => {
         setGanttData((prev) => [...prev, block]);
-        if (index === gantt.length - 1) setIsAnimating(false);
       }, index * 1000);
     });
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
-        <h1 className="text-2xl font-bold text-center">CPU Scheduling Input</h1>
+    <div className="min-h-screen bg-gradient-to-b from-sky-100 to-white p-6">
+      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
+        <h1 className="text-2xl font-bold text-center text-sky-700">
+          CPU Scheduling Input ({selectedAlgo.toUpperCase()})
+        </h1>
 
-        <div className="flex flex-col sm:flex-row gap-4">
-          <input
-            type="number"
-            className="border p-2 rounded w-full"
-            placeholder="Arrival Time"
-            value={arrivalTime}
-            onChange={(e) => setArrivalTime(e.target.value)}
-          />
-          <input
-            type="number"
-            className="border p-2 rounded w-full"
-            placeholder="Burst Time"
-            value={burstTime}
-            onChange={(e) => setBurstTime(e.target.value)}
-          />
-          <button
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            onClick={addProcess}
-          >
-            Add
-          </button>
-        </div>
+        <InputForm
+          arrivalTime={arrivalTime}
+          burstTime={burstTime}
+          priority={priority}
+          selectedAlgo={selectedAlgo}
+          onArrivalChange={(e) => setArrivalTime(e.target.value)}
+          onBurstChange={(e) => setBurstTime(e.target.value)}
+          onPriorityChange={(e) => setPriority(e.target.value)}
+          onAdd={addProcess}
+        />
+
+        {selectedAlgo === "rr" && (
+          <div className="flex flex-col sm:flex-row gap-4 items-center">
+            <label className="text-sm font-medium text-sky-600">
+              Time Quantum:
+            </label>
+            <input
+              type="number"
+              className="border p-2 rounded w-full sm:w-40"
+              placeholder="Time Quantum"
+              value={timeQuantum}
+              onChange={(e) => setTimeQuantum(e.target.value)}
+            />
+          </div>
+        )}
 
         <div>
-          <h2 className="text-lg font-semibold">Processes:</h2>
+          {processes.length !== 0 ? (
+            <h2 className="text-lg font-semibold text-sky-600">Processes:</h2>
+          ) : (
+            <></>
+          )}
           <ul className="space-y-1">
             {processes.map((p) => (
               <li key={p.id}>
                 <span className="font-mono">
                   P{p.id} - Arrival: {p.arrivalTime}, Burst: {p.burstTime}
+                  {p.priority !== undefined && `, Priority: ${p.priority}`}
                 </span>
               </li>
             ))}
@@ -131,7 +142,7 @@ export default function InputDataPage() {
         </div>
 
         <button
-          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+          className="bg-green-500 text-white px-4 py-2 cursor-pointer rounded hover:bg-green-600"
           onClick={runSimulation}
           disabled={processes.length === 0}
         >
@@ -139,96 +150,16 @@ export default function InputDataPage() {
         </button>
 
         {result.length > 0 && (
-          <div>
-            <h2 className="text-lg font-semibold mb-2">
-              Simulation Result (FCFS):
-            </h2>
-            <table className="w-full text-left border mt-2">
-              <thead>
-                <tr className="bg-gray-200">
-                  <th className="p-2 border">Process</th>
-                  <th className="p-2 border">Arrival</th>
-                  <th className="p-2 border">Burst</th>
-                  <th className="p-2 border">Start</th>
-                  <th className="p-2 border">Completion</th>
-                  <th className="p-2 border">Turnaround</th>
-                  <th className="p-2 border">Waiting</th>
-                </tr>
-              </thead>
-              <tbody>
-                {result.map((p) => (
-                  <tr key={p.id} className="border-t">
-                    <td className="p-2 border">P{p.id}</td>
-                    <td className="p-2 border">{p.arrivalTime}</td>
-                    <td className="p-2 border">{p.burstTime}</td>
-                    <td className="p-2 border">{p.start}</td>
-                    <td className="p-2 border">{p.completion}</td>
-                    <td className="p-2 border">{p.turnaround}</td>
-                    <td className="p-2 border">{p.waiting}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            {/* New: Summary metrics */}
-            <div className="mt-4 space-y-1 text-sm text-gray-800">
-              <p>
-                <strong>Total Time (Makespan):</strong> {totalTime}
-              </p>
-              <p>
-                <strong>CPU Utilization:</strong> {cpuUtilization}%
-              </p>
-              <p>
-                <strong>Average Waiting Time:</strong> {avgWaitingTime}
-              </p>
-              <p>
-                <strong>Average Turnaround Time:</strong> {avgTurnaroundTime}
-              </p>
-            </div>
-          </div>
-        )}
-
-        {ganttData.length > 0 && (
-          <div>
-            <h2 className="text-lg font-semibold mb-2">Gantt Chart:</h2>
-            <div className="overflow-x-auto max-w-full">
-              <div className="flex items-center space-x-1 border p-3 rounded bg-gray-50 relative min-w-max">
-                {ganttData.map((block, index) => (
-                  <div
-                    key={index}
-                    className={`${
-                      block.id === "Idle" ? "bg-gray-400" : "bg-blue-500"
-                    } text-white text-sm text-center rounded p-2 transition-all duration-500 shadow relative`}
-                    style={{ minWidth: `${block.duration * 30}px` }}
-                  >
-                    <div className="font-bold">
-                      {block.id === "Idle" ? "Idle" : `P${block.id}`}
-                    </div>
-                    <div className="text-xs">
-                      {block.start} - {block.start + block.duration}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Timeline scale */}
-              <div className="flex space-x-1 mt-1 pl-1">
-                {ganttData.map((block, index) => (
-                  <div
-                    key={index}
-                    className="text-xs text-gray-700"
-                    style={{ minWidth: `${block.duration * 30}px` }}
-                  >
-                    {block.start}
-                  </div>
-                ))}
-                <div className="text-xs text-gray-700">
-                  {ganttData[ganttData.length - 1].start +
-                    ganttData[ganttData.length - 1].duration}
-                </div>
-              </div>
-            </div>
-          </div>
+          <>
+            <ResultTable
+              result={result}
+              totalTime={totalTime}
+              avgWaitingTime={avgWaitingTime}
+              avgTurnaroundTime={avgTurnaroundTime}
+              cpuUtilization={cpuUtilization}
+            />
+            <GanttChart ganttData={ganttData} />
+          </>
         )}
       </div>
     </div>
