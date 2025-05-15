@@ -86,18 +86,20 @@ export default function InputDataPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
-      <div className="max-w-3xl mx-auto bg-white rounded-md shadow-md p-6">
-        <h1 className="text-xl font-bold text-center text-blue-600 mb-4">
+    <div className="dark:text-white min-h-screen bg-gray-100 dark:bg-gray-800 p-4">
+      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-900 rounded-md shadow-md p-6">
+        <h1 className="text-xl font-bold text-center text-blue-600 dark:text-white mb-4">
           CPU Scheduling ({selectedAlgo.toUpperCase()})
         </h1>
 
         <div className="mb-4">
-          <label className="block font-medium mb-1">Select Algorithm:</label>
+          <label className="block font-medium mb-1 dark:text-gray-400">
+            Select Algorithm:
+          </label>
           <select
             value={selectedAlgo}
             onChange={(e) => setSelectedAlgo(e.target.value)}
-            className="w-full border rounded px-3 py-2"
+            className="w-full border border-slate-700  rounded px-3 py-2 dark:bg-gray-700 dark:text-white"
           >
             <option value="fcfs">FCFS</option>
             <option value="ljfs">LJFS</option>
@@ -121,10 +123,12 @@ export default function InputDataPage() {
 
         {selectedAlgo === "rr" && (
           <div className="mb-4">
-            <label className="block mb-1">Time Quantum:</label>
+            <label className="block mb-1 dark:text-gray-400">
+              Time Quantum:
+            </label>
             <input
               type="number"
-              className="w-full border rounded px-3 py-2"
+              className="w-full border rounded px-3 py-2 dark:bg-gray-700 dark:text-white"
               value={timeQuantum}
               onChange={(e) => setTimeQuantum(e.target.value)}
             />
@@ -133,8 +137,10 @@ export default function InputDataPage() {
 
         {processes.length > 0 && (
           <div className="mb-4">
-            <h2 className="font-semibold mb-2">Process List:</h2>
-            <ul className="list-disc pl-5 space-y-1 text-sm">
+            <h2 className="font-semibold mb-2 dark:text-white">
+              Process List:
+            </h2>
+            <ul className="list-disc pl-5 space-y-1 text-sm dark:text-gray-300">
               {processes.map((p) => (
                 <li key={p.id}>
                   P{p.id} - Arrival: {p.arrivalTime}, Burst: {p.burstTime}
@@ -148,7 +154,7 @@ export default function InputDataPage() {
         <button
           onClick={runSimulation}
           disabled={processes.length === 0}
-          className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 disabled:opacity-50"
+          className="cursor-pointer w-full flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
         >
           Run Simulation
         </button>

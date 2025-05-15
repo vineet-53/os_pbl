@@ -14,7 +14,7 @@ export default function InputForm({
         <label className="mb-1 text-sm font-medium">Arrival Time</label>
         <input
           type="number"
-          className="border rounded px-3 py-2"
+          className="border border-slate-700 rounded px-3 py-2"
           placeholder="e.g. 0"
           value={arrivalTime}
           onChange={onArrivalChange}
@@ -25,7 +25,7 @@ export default function InputForm({
         <label className="mb-1 text-sm font-medium">Burst Time</label>
         <input
           type="number"
-          className="border rounded px-3 py-2"
+          className="border border-slate-700 rounded px-3 py-2"
           placeholder="e.g. 5"
           value={burstTime}
           onChange={onBurstChange}
@@ -37,7 +37,7 @@ export default function InputForm({
           <label className="mb-1 text-sm font-medium">Priority</label>
           <input
             type="number"
-            className="border rounded px-3 py-2"
+            className="border border-slate-700 rounded px-3 py-2"
             placeholder="e.g. 2"
             value={priority}
             onChange={onPriorityChange}
@@ -48,7 +48,7 @@ export default function InputForm({
       <div className="flex items-end">
         <button
           onClick={onAdd}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="cursor-pointer flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-sm py-1 px-2 rounded"
         >
           Add
         </button>
