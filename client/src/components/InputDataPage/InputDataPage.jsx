@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import InputForm from "../InputDataPage/InputForm";
 import ResultTable from "../InputDataPage/ResultTable";
 import GanttChart from "../InputDataPage/GanttChart";
@@ -10,14 +9,12 @@ import { runRR } from "../../algorithm/rr.js";
 import { runPriority } from "../../algorithm/priority.js";
 
 export default function InputDataPage() {
-  const location = useLocation();
-  const selectedAlgo = location.state?.selectedAlgo || "";
-
+  const [selectedAlgo, setSelectedAlgo] = useState("fcfs");
   const [processes, setProcesses] = useState([]);
   const [arrivalTime, setArrivalTime] = useState("");
   const [burstTime, setBurstTime] = useState("");
   const [priority, setPriority] = useState("");
-  const [timeQuantum, setTimeQuantum] = useState(2); // Used only once
+  const [timeQuantum, setTimeQuantum] = useState(2);
 
   const [result, setResult] = useState([]);
   const [ganttData, setGanttData] = useState([]);
@@ -37,7 +34,6 @@ export default function InputDataPage() {
       if (priority === "") return;
       newProcess.priority = parseInt(priority);
     }
-
     setProcesses([...processes, newProcess]);
     setArrivalTime("");
     setBurstTime("");
@@ -46,7 +42,6 @@ export default function InputDataPage() {
 
   const runSimulation = () => {
     let simulationResult;
-
     switch (selectedAlgo) {
       case "fcfs":
         simulationResult = runFCFS(processes);
@@ -91,17 +86,33 @@ export default function InputDataPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-100 to-white p-6">
-      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-6 space-y-6">
-        <h1 className="text-2xl font-bold text-center text-sky-700">
-          CPU Scheduling Input ({selectedAlgo.toUpperCase()})
+    <div className="min-h-screen bg-gray-100 p-4">
+      <div className="max-w-3xl mx-auto bg-white rounded-md shadow-md p-6">
+        <h1 className="text-xl font-bold text-center text-blue-600 mb-4">
+          CPU Scheduling ({selectedAlgo.toUpperCase()})
         </h1>
+
+        <div className="mb-4">
+          <label className="block font-medium mb-1">Select Algorithm:</label>
+          <select
+            value={selectedAlgo}
+            onChange={(e) => setSelectedAlgo(e.target.value)}
+            className="w-full border rounded px-3 py-2"
+          >
+            <option value="fcfs">FCFS</option>
+            <option value="ljfs">LJFS</option>
+            <option value="sjfs">SJFS</option>
+            <option value="rr">RR</option>
+            <option value="priority">Priority</option>
+          </select>
+        </div>
 
         <InputForm
           arrivalTime={arrivalTime}
           burstTime={burstTime}
           priority={priority}
           selectedAlgo={selectedAlgo}
+          setSelectedAlgo={setSelectedAlgo}
           onArrivalChange={(e) => setArrivalTime(e.target.value)}
           onBurstChange={(e) => setBurstTime(e.target.value)}
           onPriorityChange={(e) => setPriority(e.target.value)}
@@ -109,48 +120,41 @@ export default function InputDataPage() {
         />
 
         {selectedAlgo === "rr" && (
-          <div className="flex flex-col sm:flex-row gap-4 items-center">
-            <label className="text-sm font-medium text-sky-600">
-              Time Quantum:
-            </label>
+          <div className="mb-4">
+            <label className="block mb-1">Time Quantum:</label>
             <input
               type="number"
-              className="border p-2 rounded w-full sm:w-40"
-              placeholder="Time Quantum"
+              className="w-full border rounded px-3 py-2"
               value={timeQuantum}
               onChange={(e) => setTimeQuantum(e.target.value)}
             />
           </div>
         )}
 
-        <div>
-          {processes.length !== 0 ? (
-            <h2 className="text-lg font-semibold text-sky-600">Processes:</h2>
-          ) : (
-            <></>
-          )}
-          <ul className="space-y-1">
-            {processes.map((p) => (
-              <li key={p.id}>
-                <span className="font-mono">
+        {processes.length > 0 && (
+          <div className="mb-4">
+            <h2 className="font-semibold mb-2">Process List:</h2>
+            <ul className="list-disc pl-5 space-y-1 text-sm">
+              {processes.map((p) => (
+                <li key={p.id}>
                   P{p.id} - Arrival: {p.arrivalTime}, Burst: {p.burstTime}
                   {p.priority !== undefined && `, Priority: ${p.priority}`}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <button
-          className="bg-green-500 text-white px-4 py-2 cursor-pointer rounded hover:bg-green-600"
           onClick={runSimulation}
           disabled={processes.length === 0}
+          className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 disabled:opacity-50"
         >
           Run Simulation
         </button>
 
         {result.length > 0 && (
-          <>
+          <div className="mt-6 space-y-6">
             <ResultTable
               result={result}
               totalTime={totalTime}
@@ -159,7 +163,7 @@ export default function InputDataPage() {
               cpuUtilization={cpuUtilization}
             />
             <GanttChart ganttData={ganttData} />
-          </>
+          </div>
         )}
       </div>
     </div>

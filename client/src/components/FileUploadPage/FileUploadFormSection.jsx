@@ -65,6 +65,7 @@ const FileUploadFormSection = ({ filesList, setResult }) => {
           <label className="block text-sky-700 font-semibold mb-1">
             Select Scheduling Algorithm
           </label>
+
           <select
             value={selectAlgo}
             onChange={(e) => setSelectAlgo(e.target.value)}
