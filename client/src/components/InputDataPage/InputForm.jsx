@@ -22,7 +22,7 @@ export default function InputForm({
       </div>
 
       <div className="flex flex-col">
-        <label className="mb-1 font-medium">Burst Time:</label>
+      <label className="mb-1 font-medium">Burst Time:</label>
         <input
           type="number"
           className="bg-gray-700 focus:outline-none rounded px-3 py-2 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]"

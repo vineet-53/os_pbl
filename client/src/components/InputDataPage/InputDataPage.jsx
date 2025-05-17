@@ -112,15 +112,15 @@
                 setAvgTurnaroundTime(0);
                 setSelectedAlgo(e.target.value);
               }}
-              className="w-full border border-slate-700 focus:outline-none rounded-xl px-3 py-2 dark:bg-gray-700 dark:text-white"
+              className="w-full border border-slate-700 focus:outline-none rounded-xl px-3 py-2 bg-gray-700 text-white"
             >
               <option value="" className="text-gray-400">
                 --Select--
               </option>
-              <option value="fcfs">FCFS</option>
-              <option value="ljfs">LJFS</option>
-              <option value="sjfs">SJFS</option>
-              <option value="rr">RR</option>
+              <option value="fcfs">First Come First Serve</option>
+              <option value="ljfs">Longest Job First</option>
+              <option value="sjfs">Shortest Job First</option>
+              <option value="rr">Round Robin</option>
               <option value="priority">Priority</option>
             </select>
           </div>

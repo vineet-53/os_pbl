@@ -11,17 +11,18 @@ export default function Navbar() {
     { name: "Upload", href: "/file-upload" },
     { name: "CPU", href: "/cpu-scheduling" },
     { name: "Disk", href: "/disk-scheduling" },
+    { name: "Docs", href: "/docs" },
   ];
 
   return (
     <nav className="relative z-10 bg-[#0A1F2B] text-white py-6">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto lg:px-4 flex justify-between items-center">
         <a
           href="/"
           className="flex items-center space-x-2 bg-[#01090fcb] py-3 px-5 rounded-full"
         >
           <span className="block w-8 h-8 bg-gradient-to-br from-teal-400 to-blue-500 rounded-full"></span>
-          <span className="text-xl font-semibold">Hyprland</span>
+          <span className="text-xl font-semibold">DHRV</span>
         </a>
 
         <div className="hidden md:flex md:items-center md:space-x-6 bg-[#01090fcb] py-2 px-4 rounded-full">
