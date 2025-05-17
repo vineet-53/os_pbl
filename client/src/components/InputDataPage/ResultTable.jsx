@@ -7,24 +7,22 @@ export default function ResultTable({
 }) {
   return (
     <div>
-      <h2 className="text-lg font-semibold mb-2 text-sky-600">
-        Simulation Result:
-      </h2>
-      <table className="w-full border mt-2">
+      <h2 className="font-medium mb-2 text-white">Simulation Result:</h2>
+      <table className="w-full border-2 mt-2">
         <thead>
-          <tr className="bg-gray-200">
-            <th className="p-2 border">Process ID</th>
-            <th className="p-2 border">Arrival Time</th>
-            <th className="p-2 border">Burst TIme</th>
-            <th className="p-2 border">Start Time</th>
-            <th className="p-2 border">Completion Time</th>
-            <th className="p-2 border">Turn Around Time</th>
-            <th className="p-2 border">Waiting Time</th>
+          <tr className="bg-gray-200 text-teal-500">
+            <th className="p-2 border-2 border-teal-500 ">Process ID</th>
+            <th className="p-2 border-2 border-teal-500 ">Arrival Time</th>
+            <th className="p-2 border-2 border-teal-500 ">Burst TIme</th>
+            <th className="p-2 border-2 border-teal-500">Start Time</th>
+            <th className="p-2 border-2 border-teal-500 ">Completion Time</th>
+            <th className="p-2 border-2 border-teal-500 ">Turn Around Time</th>
+            <th className="p-2 border-2 border-teal-500 ">Waiting Time</th>
           </tr>
         </thead>
         <tbody>
           {result.map((p) => (
-            <tr key={p.id} className="border-t">
+            <tr key={p.id} className="border-t font-medium">
               <td className="p-2 border">P{p.id}</td>
               <td className="p-2 border">{p.arrivalTime}</td>
               <td className="p-2 border">{p.burstTime}</td>
@@ -37,18 +35,21 @@ export default function ResultTable({
         </tbody>
       </table>
 
-      <div className="mt-4 space-y-1 text-base text-gray-800">
+      <div className="mt-4 space-y-1 text-base ">
         <p>
-          <strong>Total Time:</strong> {totalTime}
+          <strong className="text-gray-400">Total Time:</strong> {totalTime}
         </p>
         <p>
-          <strong>CPU Utilization:</strong> {cpuUtilization}%
+          <strong className="text-gray-400">CPU Utilization:</strong>{" "}
+          {cpuUtilization}%
         </p>
         <p>
-          <strong>Average Waiting Time:</strong> {avgWaitingTime}
+          <strong className="text-gray-400">Average Waiting Time:</strong>{" "}
+          {avgWaitingTime}
         </p>
         <p>
-          <strong>Average Turnaround Time:</strong> {avgTurnaroundTime}
+          <strong className="text-gray-400">Average Turnaround Time:</strong>{" "}
+          {avgTurnaroundTime}
         </p>
       </div>
     </div>
