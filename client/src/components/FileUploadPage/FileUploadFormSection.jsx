@@ -7,10 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 const FileUploadFormSection = ({ filesList, setResult }) => {
   const [files, setFiles] = useState([]);
-  const [selectAlgo, setSelectAlgo] = useState("fcfs");
+  const [selectAlgo, setSelectAlgo] = useState("");
 
-  // FIX: why this navigate ?
-  //const navigate = useNavigate();
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -58,19 +56,22 @@ const FileUploadFormSection = ({ filesList, setResult }) => {
   return (
     <form
       onSubmit={handleFormSubmit}
-      className="w-full max-w-3xl bg-white border border-sky-200 shadow-xl p-6 mt-4 rounded-2xl flex flex-col items-center gap-6"
+      className="w-full max-w-3xl bg-[#01090fcb] border border-sky-200 shadow-xl p-6 mt-4 rounded-2xl flex flex-col items-center gap-6"
     >
       {filesList?.length !== 0 && (
         <div className="w-full max-w-xs">
-          <label className="block text-sky-700 font-semibold mb-1">
+          <label className="block text-white text-center font-semibold text-lg mb-5">
             Select Scheduling Algorithm
           </label>
 
           <select
             value={selectAlgo}
             onChange={(e) => setSelectAlgo(e.target.value)}
-            className="block w-full border cursor-pointer border-sky-300 rounded-lg px-4 py-2 text-base text-gray-700 focus:outline-none focus:ring-2 focus:ring-sky-400"
+            className="block w-full bg-gray-700 cursor-pointer rounded-lg px-4 py-2 text-base text-white focus:outline-none"
           >
+            <option className="text-gray-400" value="">
+              --Select--
+            </option>
             <option value="fcfs">FCFS</option>
             <option value="ljfs">LJFS</option>
             <option value="sjfs">SJFS</option>
@@ -89,7 +90,7 @@ const FileUploadFormSection = ({ filesList, setResult }) => {
       {filesList?.length !== 0 && (
         <button
           type="submit"
-          className="mt-4 px-6 py-2 cursor-pointer bg-sky-600 hover:bg-sky-700 text-white rounded-xl shadow-md transition-all duration-200"
+          className="mt-4 px-6 py-2 cursor-pointer bg-teal-500 hover:bg-teal-800 text-white rounded-xl shadow-md transition-all duration-200"
         >
           Upload
         </button>

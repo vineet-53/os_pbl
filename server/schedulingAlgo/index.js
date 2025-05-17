@@ -13,7 +13,7 @@ export async function processFilesFCFS(fileQueue) {
 
   for (const { file, arrivalTime } of fileQueue) {
     console.log(
-      `⏳ Starting: ${file.originalname} at ${new Date(arrivalTime).toISOString()}`,
+      `Starting: ${file.originalname} at ${new Date(arrivalTime).toISOString()}`,
     );
 
     const start = Date.now();
@@ -26,9 +26,9 @@ export async function processFilesFCFS(fileQueue) {
     const burstTime = end - start; // BT: encryption duration
 
     console.log(
-      `✅ Finished: ${file.originalname} at ${new Date(end).toISOString()}`,
+      `Finished: ${file.originalname} at ${new Date(end).toISOString()}`,
     );
-    console.log(`🕒 Burst Time: ${burstTime}ms`);
+    console.log(`Burst Time: ${burstTime}ms`);
 
     results.push({
       file: file.originalname,

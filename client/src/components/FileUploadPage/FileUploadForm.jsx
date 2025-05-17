@@ -11,7 +11,7 @@ const FileUploadForm = ({ setFiles }) => {
   };
 
   return (
-    <div className="w-72 h-24 bg-white border border-sky-200 shadow-md rounded-xl flex justify-center items-center p-4 transition-all">
+    <div className="w-72 h-24 bg-[#05273983] border border-sky-200 shadow-md rounded-xl flex justify-center items-center p-4 transition-all">
       <button
         type="button"
         onClick={() => fileUploadRef.current.click()}
@@ -20,8 +20,8 @@ const FileUploadForm = ({ setFiles }) => {
         {file == null
           ? "Upload File"
           : file.name.length < 20
-            ? file.name
-            : file.name.slice(0, 20) + " ..."}
+          ? file.name
+          : file.name.slice(0, 20) + " ..."}
       </button>
 
       <input

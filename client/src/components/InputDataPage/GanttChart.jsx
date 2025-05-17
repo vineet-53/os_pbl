@@ -3,14 +3,14 @@ export default function GanttChart({ ganttData }) {
 
   return (
     <div>
-      <h2 className="text-lg font-semibold mb-2 text-sky-600">Gantt Chart:</h2>
+      <h2 className="font-medium mb-2 text-white">Gantt Chart:</h2>
       <div className="overflow-x-auto max-w-full">
-        <div className="flex items-center space-x-1 border p-3 rounded bg-gray-50 relative min-w-max">
+        <div className="flex items-center space-x-1 border p-3 rounded bg-gray-700 relative min-w-max">
           {ganttData.map((block, index) => (
             <div
               key={index}
               className={`${
-                block.id === "Idle" ? "bg-gray-400" : "bg-blue-500"
+                block.id === "Idle" ? "bg-gray-400" : "bg-teal-500"
               } text-white text-sm text-center rounded p-5 transition-all duration-500 shadow relative`}
               style={{ minWidth: `${block.duration * 45}px` }}
             >
