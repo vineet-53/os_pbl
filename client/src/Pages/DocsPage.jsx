@@ -199,12 +199,14 @@ const algorithms = {
         "May cause slightly uneven wait times",
         "Implementation overhead",
       ],
+
       workingSteps: [
         "Move in one direction, but only as far as the furthest request in that direction.",
         "Serve all requests in order along the way.",
         "Reverse direction once the last request is reached.",
         "Repeat this until all requests are served.",
       ],
+
     },
   ],
 };
@@ -214,6 +216,7 @@ const AlgorithmCard = ({ algo }) => {
   const [open, setOpen] = useState(false);
 
   return (
+
     <div
       onClick={() => setOpen(!open)}
       className="bg-gray-800 cursor-pointer text-white p-5 rounded-2xl shadow-lg transition-all duration-300 border border-cyan-600"
@@ -223,6 +226,7 @@ const AlgorithmCard = ({ algo }) => {
         <span className="text-cyan-300 text-xl font-bold">
           {open ? "▲" : "▼"}
         </span>
+
       </div>
       {open && (
         <div className="mt-4 text-lg space-y-4">
@@ -254,6 +258,7 @@ const AlgorithmCard = ({ algo }) => {
               ))}
             </ul>
           </div>
+
           <div>
             <strong>Working Steps:</strong>
             <ul className=" list-decimal list-inside">
@@ -262,6 +267,7 @@ const AlgorithmCard = ({ algo }) => {
               ))}
             </ul>
           </div>
+
         </div>
       )}
     </div>

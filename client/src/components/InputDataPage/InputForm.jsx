@@ -21,6 +21,7 @@ export default function InputForm({
         />
       </div>
 
+
       <div className="flex flex-col mt-5 md:mt-0">
         <label className="mb-1 font-medium">Burst Time:</label>
         <input
