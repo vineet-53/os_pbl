@@ -27,7 +27,7 @@ const teamMembers = [
     section: "B2",
     photo:
       "https://res.cloudinary.com/dn2iyhuoo/image/upload/v1747576592/Screenshot_2025-05-18_001907_xy3ooi.png",
-    role: "Backend Development",
+    role: "Backend Development && File as Prcoess Scheduling Algorithm",
   },
 ];
 
