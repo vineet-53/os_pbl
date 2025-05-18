@@ -3,9 +3,9 @@ export default function GanttChart({ ganttData }) {
 
   return (
     <div>
-      <h2 className="font-medium mb-2 text-white">Gantt Chart:</h2>
+      <h2 className="font-medium mb-2 text-white text-lg">Gantt Chart:</h2>
       <div className="overflow-x-auto max-w-full">
-        <div className="flex items-center space-x-1 border p-3 rounded bg-gray-700 relative min-w-max">
+        <div className="flex items-center space-x-1 border border-sky-300 p-3 rounded bg-gray-700 relative min-w-max">
           {ganttData.map((block, index) => (
             <div
               key={index}
@@ -23,22 +23,6 @@ export default function GanttChart({ ganttData }) {
             </div>
           ))}
         </div>
-
-        {/* <div className="flex space-x-1 mt-1 pl-4">
-          {ganttData.map((block, index) => (
-            <div
-              key={index}
-              className="text-xs text-gray-700"
-              style={{ minWidth: `${block.duration * 28}px` }}
-            >
-              {block.start}
-            </div>
-          ))}
-          <div className="text-xs text-gray-700">
-            {ganttData[ganttData.length - 1].start +
-              ganttData[ganttData.length - 1].duration}
-          </div>
-        </div> */}
       </div>
     </div>
   );

@@ -38,7 +38,6 @@ const FileUploadFormSection = ({ filesList, setResult }) => {
           throw new Error("Upload failed");
         }
         setResult(res.data.result);
-        //navigate("/process", { state: { selectedAlgo: selectAlgo } });
         toast.success(res.data.message);
       } catch (err) {
         console.error("Upload error:", err);
@@ -60,7 +59,7 @@ const FileUploadFormSection = ({ filesList, setResult }) => {
     >
       {filesList?.length !== 0 && (
         <div className="w-full max-w-xs">
-          <label className="block text-white text-center font-semibold text-lg mb-5">
+          <label className="block text-white text-center font-semibold text-2xl mb-5">
             Select Scheduling Algorithm
           </label>
 
@@ -68,6 +67,15 @@ const FileUploadFormSection = ({ filesList, setResult }) => {
             value={selectAlgo}
             onChange={(e) => setSelectAlgo(e.target.value)}
             className="block w-full bg-gray-700 cursor-pointer rounded-lg px-4 py-2 text-base text-white focus:outline-none"
+            style={{
+              WebkitAppearance: "none",
+              MozAppearance: "none",
+              appearance: "none",
+              backgroundImage: `url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>")`,
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "right 0.75rem center",
+              backgroundSize: "32px 32px",
+            }}
           >
             <option className="text-gray-400" value="">
               --Select--
@@ -90,7 +98,7 @@ const FileUploadFormSection = ({ filesList, setResult }) => {
       {filesList?.length !== 0 && (
         <button
           type="submit"
-          className="mt-4 px-6 py-2 cursor-pointer bg-teal-500 hover:bg-teal-800 text-white rounded-xl shadow-md transition-all duration-200"
+          className="mt-4 px-6 py-2 cursor-pointer font-medium bg-teal-500 hover:bg-teal-800 text-white rounded-xl shadow-md transition-all duration-200"
         >
           Upload
         </button>

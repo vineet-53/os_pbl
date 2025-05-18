@@ -15,7 +15,7 @@ const FileUploadPage = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-[#0A1F2B] py-20 px-4 flex flex-col items-center min-h-screen text-gray-800">
+      <div className="bg-[#0A1F2B] py-10 px-4 flex flex-col items-center min-h-screen text-gray-800">
         {result.length === 0 && (
           <>
             <div className="w-full max-w-md p-6 bg-[#01090fcb] rounded-2xl shadow-xl flex flex-col gap-4 border border-sky-200">
@@ -43,7 +43,7 @@ const FileUploadPage = () => {
             </div>
 
             {fileUploadFormList.length != 0 && (
-              <div className="mt-8 w-full max-w-2xl">
+              <div className="mt-5 w-full max-w-2xl">
                 <FileUploadFormSection
                   setResult={setResult}
                   filesList={fileUploadFormList}

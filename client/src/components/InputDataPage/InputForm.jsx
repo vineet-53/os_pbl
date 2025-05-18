@@ -21,8 +21,8 @@ export default function InputForm({
         />
       </div>
 
-      <div className="flex flex-col">
-      <label className="mb-1 font-medium">Burst Time:</label>
+      <div className="flex flex-col mt-5 md:mt-0">
+        <label className="mb-1 font-medium">Burst Time:</label>
         <input
           type="number"
           className="bg-gray-700 focus:outline-none rounded px-3 py-2 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [appearance:textfield]"
@@ -32,8 +32,8 @@ export default function InputForm({
         />
       </div>
 
-      {selectedAlgo === "priority" && (
-        <div className="flex flex-col">
+      {(selectedAlgo === "priority" || selectedAlgo === "all") && (
+        <div className="flex flex-col mt-5 md:mt-0 ">
           <label className="mb-1 font-medium">Priority:</label>
           <input
             type="number"
@@ -52,7 +52,7 @@ export default function InputForm({
       >
         <button
           onClick={onAdd}
-          className="cursor-pointer font-bold flex-shrink-0 bg-white border-transparent border-4 text-teal-500 hover:text-teal-800 text-base px-8 py-1 rounded-xl"
+          className="cursor-pointer mt-5 md:mt-0 font-bold flex-shrink-0 bg-white border-transparent border-4 text-teal-500 hover:text-teal-800 text-base px-8 py-1 rounded-xl"
         >
           Add
         </button>
