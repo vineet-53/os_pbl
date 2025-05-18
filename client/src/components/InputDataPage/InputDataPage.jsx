@@ -101,6 +101,7 @@ export default function InputDataPage() {
     });
   };
 
+
   return (
     <div className="text-white min-h-screen px-3 lg:px-0 bg-[#0A1F2B]">
       <Navbar />
@@ -108,6 +109,7 @@ export default function InputDataPage() {
         <h1 className="text-3xl font-bold text-center text-white mb-4">
           CPU Scheduling
         </h1>
+
 
         <div className="mb-4">
           <label className="block font-medium mb-1 text-lg text-white">
