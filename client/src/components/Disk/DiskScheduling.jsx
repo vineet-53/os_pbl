@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+
+import { useState } from "react";
+
 import {
   LineChart,
   Line,
@@ -75,7 +77,7 @@ const DiskScheduling = () => {
     let data = [];
     let current = parseInt(head);
     let time = 0;
-  
+
     result.sequence.forEach((track, index) => {
       const duration = Math.abs(current - track);
       data.push({
@@ -87,12 +89,14 @@ const DiskScheduling = () => {
       time += duration;
       current = track;
     });
-  
+
     return data;
   };
 
   return (
-    <div className="text-white min-h-screen bg-[#0A1F2B]">
+
+    <div className="text-white min-h-screen px-3 lg:px-0 bg-[#0A1F2B] pb-20">
+
       <Navbar />
       <div className="max-w-4xl mx-auto bg-[#01090fcb] border border-sky-300 mt-10 rounded-2xl shadow-md p-6">
         <h2 className="text-3xl font-bold text-center text-white mb-4">
@@ -100,7 +104,9 @@ const DiskScheduling = () => {
         </h2>
 
         <form className="flex flex-col gap-3 mb-6" onSubmit={handleSubmit}>
-          <label className="block font-medium text-white">
+
+          <label className="block font-medium text-lg text-white">
+
             Select Algorithm:
           </label>
           <select
@@ -111,16 +117,30 @@ const DiskScheduling = () => {
               setHead("");
               setResult(null);
             }}
-            className="w-full border border-slate-700 focus:outline-none rounded-xl px-3 py-2 bg-gray-700 text-white"
+            className="w-full cursor-pointer border border-slate-700 focus:outline-none rounded-xl px-3 py-2 bg-gray-700 text-white appearance-none relative pr-8"
+            style={{
+              WebkitAppearance: "none",
+              MozAppearance: "none",
+              appearance: "none",
+              backgroundImage: `url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>")`,
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "right 0.75rem center",
+              backgroundSize: "32px 32px",
+            }}
           >
-            <option value="" className="text-gray-400">--Select--</option>
+            <option value="" className="text-gray-400">
+              --Select--
+            </option>
+
             <option value="FCFS">First Come First Serve</option>
             <option value="SSTF">Shortest Seek Time First</option>
             <option value="SCAN">SCAN</option>
             <option value="LOOK">LOOK</option>
           </select>
-          <label className="block font-medium text-white">
-            Enter Requests:
+
+          <label className="block text-lg font-medium text-white">
+            Requests:
+
           </label>
           <input
             type="text"
@@ -129,7 +149,11 @@ const DiskScheduling = () => {
             onChange={(e) => setRequests(e.target.value)}
             className="w-full border mb-5 border-slate-700 focus:outline-none rounded-xl px-3 py-2 bg-gray-700 text-white"
           />
-          <label className="block font-medium text-white">Initial Head:</label>
+
+          <label className="block font-medium text-white text-lg">
+            Initial Head:
+          </label>
+
           <input
             type="number"
             placeholder="Enter Initial Head Position"
@@ -139,25 +163,31 @@ const DiskScheduling = () => {
           />
           <button
             type="submit"
-            className="cursor-pointer mt-10 font-bold text-xl w-full bg-teal-500 hover:bg-teal-700 border-4 border-teal-500 hover:border-teal-700 text-white py-1 px-2 rounded"
+
+            className="cursor-pointer mt-6 font-bold text-xl w-full bg-teal-500 hover:bg-teal-700 border-4 border-teal-500 hover:border-teal-700 text-white py-1 px-2 rounded"
           >
-            Calculate
+            Run Simulation
+
           </button>
         </form>
 
         {result && (
           <div className="mt-8 text-gray-300">
-            <p>
-              <strong>Seek Sequence:</strong> {result.sequence.join(" → ")}
+
+            <p className="text-white">
+              <strong className="text-gray-400">Seek Sequence:</strong>{" "}
+              {result.sequence.join(" → ")}
             </p>
-            <p>
-              <strong>Total Seek Time:</strong> {result.seekTime}
+            <p className="text-white">
+              <strong className="text-gray-400">Total Seek Time:</strong>{" "}
+              {result.seekTime}
             </p>
 
-            <h3 className="mt-8 mb-4 text-center text-white text-lg font-semibold">
-              Head Movement Line Chart
+            <h3 className="mt-8 mb-4 text-white text-lg font-semibold">
+              Head Movement
             </h3>
-            <div className="h-72">
+            <div className="h-72 rounded-xl bg-gray-800 pt-6 pr-6">
+
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={getChartData()} layout="vertical">
                   <CartesianGrid stroke="#444" />
@@ -175,10 +205,11 @@ const DiskScheduling = () => {
               </ResponsiveContainer>
             </div>
 
-            <h3 className="mt-8 mb-4 text-center text-white text-lg font-semibold">
+            <h3 className="mt-8 mb-4 text-white text-lg font-semibold">
               Seek Timeline
             </h3>
-            <div className="h-72 mt-4">
+            <div className="h-72 rounded-xl mt-4 bg-gray-800 pt-6 pr-6">
+
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart layout="vertical" data={getGanttData()}>
                   <CartesianGrid stroke="#444" />

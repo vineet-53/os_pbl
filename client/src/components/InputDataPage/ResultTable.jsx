@@ -7,7 +7,9 @@ export default function ResultTable({
 }) {
   return (
     <div>
-      <h2 className="font-medium mb-2 text-white">Simulation Result:</h2>
+      <h2 className="font-medium mb-2 text-white text-lg">
+        Simulation Result:
+      </h2>
       <table className="w-full border-2 mt-2">
         <thead>
           <tr className="bg-gray-200 text-teal-500">
