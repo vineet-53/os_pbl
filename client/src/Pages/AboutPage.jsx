@@ -4,26 +4,30 @@ const teamMembers = [
   {
     name: "Divya Chaudhary",
     section: "A2",
-    photo: "/public/Screenshot 2025-05-18 002150.png",
-    role: "Frontend Development & UI Design",
+    photo:
+      "https://res.cloudinary.com/dn2iyhuoo/image/upload/v1747576592/Screenshot_2025-05-18_002150_qtlxua.png",
+    role: "Frontend Development & Disk Scheduling Algorithm",
   },
   {
     name: "Himanshu Dhapola",
     section: "A1",
-    photo: "/public/Screenshot 2025-05-18 002122.png",
-    role: "Backend Logic & Algorithm Implementation",
+    photo:
+      "https://res.cloudinary.com/dn2iyhuoo/image/upload/v1747576592/Screenshot_2025-05-18_002122_zqx5yl.png",
+    role: "Frontend Development & CPU Scheduling Algorithm",
   },
   {
     name: "Rakesh Singh",
     section: "E1",
-    photo: "/public/Screenshot 2025-05-18 002157.png",
-    role: "Testing & Documentation",
+    photo:
+      "https://res.cloudinary.com/dn2iyhuoo/image/upload/v1747576594/Screenshot_2025-05-18_002157_zgo1pz.png",
+    role: "Frontend Development & Docs",
   },
   {
     name: "Vineet Singh",
     section: "B2",
-    photo: "/public/Screenshot 2025-05-18 001907.png",
-    role: "Project Management & Deployment",
+    photo:
+      "https://res.cloudinary.com/dn2iyhuoo/image/upload/v1747576592/Screenshot_2025-05-18_001907_xy3ooi.png",
+    role: "Backend Development && File as Process Scheduling Algorithm",
   },
 ];
 

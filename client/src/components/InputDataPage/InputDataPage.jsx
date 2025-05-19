@@ -107,9 +107,8 @@ export default function InputDataPage() {
       <Navbar />
       <div className="max-w-4xl mx-auto bg-[#01090fcb] border border-sky-300 mt-10 rounded-2xl shadow-md p-6">
         <h1 className="text-3xl font-bold text-center text-white mb-4">
-          CPU Scheduling
+          CPU Scheduling Simulator
         </h1>
-
 
         <div className="mb-4">
           <label className="block font-medium mb-1 text-lg text-white">
