@@ -1,9 +1,19 @@
 import React from "react";
 import GanttChart from "./GanttChart";
+import { SkipBack } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const ProcessScheduler = ({ processes }) => {
+  const navigate = useNavigate();
   return (
     <div className="w-full p-4">
+      <button className="cursor-pointer">
+        <SkipBack
+          onClick={() => {
+            navigate("/file-upload");
+          }}
+        />
+      </button>
       <h1 className="mb-6 text-2xl font-bold text-center text-gray-800">
         CPU Process Scheduler
       </h1>

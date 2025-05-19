@@ -39,11 +39,6 @@ const GanttChart = ({ processes }) => {
   }, []);
 
   const restartAnimation = () => {
-    setAnimate(true);
-    setIsPlaying(true);
-  };
-
-  const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
 
@@ -55,14 +50,8 @@ const GanttChart = ({ processes }) => {
         </h2>
         <div className="flex space-x-2">
           <button
-            onClick={togglePlayPause}
-            className="p-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
-          >
-            {isPlaying ? <Pause size={16} /> : <Play size={16} />}
-          </button>
-          <button
             onClick={restartAnimation}
-            className="p-2 text-white bg-gray-500 rounded-md hover:bg-gray-600 focus:outline-none"
+            className="cursor-pointer p-2 text-white bg-gray-500 rounded-md hover:bg-gray-600 focus:outline-none"
           >
             <RotateCcw size={16} />
           </button>
@@ -70,13 +59,6 @@ const GanttChart = ({ processes }) => {
       </div>
 
       <div ref={containerRef} className="relative overflow-x-auto">
-        <Timeline
-          minTime={minTime}
-          maxTime={maxTime}
-          timeScale={timeScale}
-          width={containerWidth}
-        />
-
         <div className="relative h-48 border-t border-b border-gray-200">
           <div
             className="absolute h-full w-full bg-gray-50 bg-opacity-50"
@@ -89,7 +71,7 @@ const GanttChart = ({ processes }) => {
 
           {sortedProcesses.map((process, index) => (
             <ProcessBar
-              key={process.file}
+              key={index}
               process={process}
               index={index}
               minTime={minTime}

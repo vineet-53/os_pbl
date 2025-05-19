@@ -9,7 +9,6 @@ const FileUploadFormSection = ({ filesList, setResult }) => {
   const [files, setFiles] = useState([]);
   const [selectAlgo, setSelectAlgo] = useState("");
 
-
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
@@ -20,6 +19,10 @@ const FileUploadFormSection = ({ filesList, setResult }) => {
       return;
     }
 
+    if (selectAlgo === "") {
+      toast.error("Please select algorithm");
+      return;
+    }
     files.forEach((file) => {
       formData.append("files", file);
     });
@@ -77,14 +80,12 @@ const FileUploadFormSection = ({ filesList, setResult }) => {
               backgroundSize: "32px 32px",
             }}
           >
-            <option className="text-gray-400" value="">
+            <option disabled className="text-gray-400" value="">
               --Select--
             </option>
             <option value="fcfs">FCFS</option>
             <option value="ljfs">LJFS</option>
             <option value="sjfs">SJFS</option>
-            <option value="rr">RR</option>
-            <option value="priority">Priority</option>
           </select>
         </div>
       )}

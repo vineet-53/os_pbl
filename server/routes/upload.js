@@ -2,7 +2,11 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-const { processFilesFCFS } = require("../schedulingAlgo");
+const {
+  processFilesFCFS,
+  processFilesSJFS,
+  processFilesLJFS,
+} = require("../schedulingAlgo");
 
 const router = express.Router();
 
@@ -53,12 +57,15 @@ router.post("/", upload.array("files"), async (req, res) => {
       originalName: file.originalname,
       filename: file.filename,
       path: file.path,
+      size: file.size,
     }));
 
     let result = [];
 
+    console.log(uploadedFiles);
+
+    let fileQueue = [];
     if (algo === "fcfs") {
-      let fileQueue = [];
       for (const file of files) {
         fileQueue.push({
           file,
@@ -66,6 +73,24 @@ router.post("/", upload.array("files"), async (req, res) => {
         });
       }
       result = await processFilesFCFS(fileQueue);
+    } else if (algo === "sjfs") {
+      for (const file of files) {
+        fileQueue.push({
+          file,
+          arrivalTime: Date.now(),
+          burstTime: file.size,
+        });
+      }
+      result = await processFilesSJFS(fileQueue);
+    } else if (algo === "ljfs") {
+      for (const file of files) {
+        fileQueue.push({
+          file,
+          arrivalTime: Date.now(),
+          burstTime: file.size,
+        });
+      }
+      result = await processFilesLJFS(fileQueue);
     }
 
     await removeJunkFiles(files);

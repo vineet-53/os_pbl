@@ -2,9 +2,8 @@ import React from "react";
 import { formatTime } from "../utils/timeUtils";
 
 const Timeline = ({ minTime, maxTime, timeScale, width }) => {
-  // Generate time markers every 1000ms or appropriately based on the time range
   const timeRange = maxTime - minTime;
-  const markerStep = timeRange > 10000 ? 2000 : 1000; // Adjust marker density
+  const markerStep = timeRange > 10000 ? 2000 : 1000;
 
   const markers = [];
   for (let i = minTime; i <= maxTime; i += markerStep) {

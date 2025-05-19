@@ -9,7 +9,11 @@ const FileUploadPage = () => {
 
   const inputRef = useRef(null);
   if (result.length != 0) {
-    return <ProcessScheduler processes={result} />;
+    return (
+      <>
+        <ProcessScheduler processes={result} />{" "}
+      </>
+    );
   }
 
   return (
@@ -32,7 +36,7 @@ const FileUploadPage = () => {
                   else if (parseInt(inputRef.current.value) > 10) return;
                   else {
                     setFileUploadFormList(
-                      new Array(parseInt(inputRef.current.value)).fill(1)
+                      new Array(parseInt(inputRef.current.value)).fill(1),
                     );
                   }
                 }}
